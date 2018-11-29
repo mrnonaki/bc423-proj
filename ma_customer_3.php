@@ -7,7 +7,7 @@ if (isset($_POST['type'])) {
 		$name = $_POST['name'];
 		$addr = $_POST['addr'];
 		$tel = $_POST['tel'];
-		$reg = $_POST['reg'];
+		$reg = date("Y-m-d");
 		if ($name !== '') {
 			$sql = "INSERT INTO customer VALUES ('$id', '$name', '$addr', '$tel', '$reg')";
 			$result = $conn->query($sql);

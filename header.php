@@ -56,7 +56,7 @@ $conn->set_charset("utf8");
         <!-- sidebar menu start-->
         <ul class="sidebar-menu">
           <li class="">
-            <a class="" href="index.html">
+            <a class="" href="home.php">
                           <i class="icon_house_alt"></i>
                           <span>หน้าหลัก</span>
                       </a>

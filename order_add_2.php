@@ -3,7 +3,7 @@ require 'header.php';
 $sql = "SELECT COUNT(*) FROM orders";
 $result = $conn->query($sql);
 $row = $result->fetch_assoc();
-$id = 'O'.sprintf("%04d", $row["COUNT(*)"] + 1);
+$id = 'O'.sprintf("%03d", $row["COUNT(*)"] + 1);
 ?>
     <!--main content start-->
     <section id="main-content">
@@ -79,7 +79,7 @@ echo "<input type=\"hidden\" name=\"amount\" value=\"".$net."\">\n";
                 </thead>
               </table>
             </section>
-			<button type="submit" class="btn btn-primary">ยืนยัน</button>
+			<button onclick="goBack()" class="btn btn-primary">ย้อนกลับ</button><button type="submit" class="btn btn-primary">ยืนยัน</button>
           </div>
 		</form>
         <!-- page end-->

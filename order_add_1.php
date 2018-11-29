@@ -27,8 +27,10 @@ require 'header.php';
 $sql = "SELECT * FROM type";
 $result = $conn->query($sql);
 while($row = $result->fetch_assoc()) {
+	if ($row["type_count"] > 0) {
 	echo "<tr><td>".$row["type_name"]."</td><td>".$row["type_price"]."</td><td>".$row["type_rate"]."</td>";
 	echo "<td><input class=\"form-control input-sm m-bot15\" type=\"text\" name=\"".$row["type_id"]."\" placeholder=\"".$row["type_count"]."\"></td></tr>\n";
+	}
 }
 ?>
                 </tbody>

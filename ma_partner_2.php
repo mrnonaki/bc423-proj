@@ -7,7 +7,7 @@ if (isset($_POST['id'])) {
 		$sql = "SELECT COUNT(*) FROM partner";
 		$result = $conn->query($sql);
 		$row = $result->fetch_assoc();
-		$id = 'P'.sprintf("%04d", $row["COUNT(*)"] + 1);
+		$id = 'P'.sprintf("%03d", $row["COUNT(*)"] + 1);
 		$name = "ชื่อคู่ค้า";
 		$tel = "เบอร์โทรคู่ค้า";
 		$type = 'insert';
@@ -45,7 +45,7 @@ if (isset($_POST['id'])) {
                 <input type="text" class="form-control input-lg m-bot15" name="tel" placeholder="<?php echo $tel;?>">
               </div>
 			</div>
-			<button type="submit" class="btn btn-primary">ยืนยัน</button>
+			<button onclick="goBack()" class="btn btn-primary">ย้อนกลับ</button><button type="submit" class="btn btn-primary">ยืนยัน</button>
           </div>
 		</form>
         <!-- page end-->

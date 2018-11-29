@@ -31,6 +31,12 @@
   <script src="js/form-component.js"></script>
   <!-- custome script for all page -->
   <script src="js/scripts.js"></script>
+  
+<script>
+function goBack() {
+    window.history.back();
+}
+</script>
 
 
 </body>

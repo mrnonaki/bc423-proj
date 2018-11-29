@@ -8,7 +8,7 @@ if (isset($_POST['id'])) {
 	$customer = $_POST['customer'];
 	$amount = $_POST['amount'];
 	$status = 0;
-	$sql = "INSERT INTO orders VALUES ('$id', '$time', '', '', '', '$amount', '$status', '$staff', '$customer')";
+	$sql = "INSERT INTO orders VALUES ('$id', '$time', NULL, NULL, NULL, '$amount', '$status', '$staff', '$customer')";
 	$result = $conn->query($sql);
 	
 	$sql = "SELECT * FROM type";
@@ -17,10 +17,9 @@ if (isset($_POST['id'])) {
 		if (isset($_POST[$row["type_id"]])) {
 			$type = $row["type_id"];
 			$count = $_POST[$row["type_id"]];
-			$sqll = "INSERT INTO sales VALUES (NULL, '$id', '$type', NULL);";
-			for ($i = 0; $i < $count; $i++) {
-				$resultt = $conn->query($sqll);
-			}
+			$sqll = "INSERT INTO sales VALUES (NULL, '$id', '$type', '$count');";
+			$resultt = $conn->query($sqll);
+			
 		}
 	}
 }

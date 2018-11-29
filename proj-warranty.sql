@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Nov 25, 2018 at 09:34 PM
+-- Generation Time: Nov 29, 2018 at 06:49 AM
 -- Server version: 10.1.34-MariaDB
 -- PHP Version: 5.6.37
 
@@ -41,7 +41,7 @@ CREATE TABLE `customer` (
 --
 
 INSERT INTO `customer` (`cus_id`, `cus_name`, `cus_addr`, `cus_tel`, `cus_reg`) VALUES
-('C0001', 'A', 'AA', '12345', '0000-00-00');
+('C001', 'A', '12345', '12345', '2018-11-29');
 
 -- --------------------------------------------------------
 
@@ -52,9 +52,9 @@ INSERT INTO `customer` (`cus_id`, `cus_name`, `cus_addr`, `cus_tel`, `cus_reg`) 
 CREATE TABLE `orders` (
   `orders_id` varchar(5) NOT NULL,
   `orders_date` date NOT NULL,
-  `orders_pay` date NOT NULL,
-  `orders_ship` date NOT NULL,
-  `orders_track` varchar(20) NOT NULL,
+  `orders_pay` date DEFAULT NULL,
+  `orders_ship` date DEFAULT NULL,
+  `orders_track` varchar(20) DEFAULT NULL,
   `orders_amount` int(11) NOT NULL,
   `orders_status` int(11) NOT NULL,
   `staff_id` varchar(5) NOT NULL,
@@ -66,7 +66,7 @@ CREATE TABLE `orders` (
 --
 
 INSERT INTO `orders` (`orders_id`, `orders_date`, `orders_pay`, `orders_ship`, `orders_track`, `orders_amount`, `orders_status`, `staff_id`, `cus_id`) VALUES
-('O0001', '2018-11-25', '0000-00-00', '0000-00-00', '', 20000, 0, 'E0001', 'C0001');
+('O001', '2018-11-29', NULL, NULL, NULL, 122500, 0, 'E001', 'C001');
 
 -- --------------------------------------------------------
 
@@ -85,7 +85,7 @@ CREATE TABLE `partner` (
 --
 
 INSERT INTO `partner` (`partner_id`, `partner_name`, `partner_tel`) VALUES
-('P0001', 'A', '12345');
+('P001', 'C', '12345');
 
 -- --------------------------------------------------------
 
@@ -95,19 +95,47 @@ INSERT INTO `partner` (`partner_id`, `partner_name`, `partner_tel`) VALUES
 
 CREATE TABLE `product` (
   `prod_sn` varchar(20) NOT NULL,
+  `type_id` varchar(5) NOT NULL,
   `prod_in` date NOT NULL,
   `prod_status` int(11) NOT NULL,
-  `type_id` varchar(5) NOT NULL
+  `orders_id` varchar(5) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
 -- Dumping data for table `product`
 --
 
-INSERT INTO `product` (`prod_sn`, `prod_in`, `prod_status`, `type_id`) VALUES
-('A', '2018-11-19', 0, '1142n'),
-('B', '2018-11-19', 0, '3560g'),
-('C', '2018-11-19', 0, '4404');
+INSERT INTO `product` (`prod_sn`, `type_id`, `prod_in`, `prod_status`, `orders_id`) VALUES
+('11', '1142n', '2018-11-29', 1, 'O001'),
+('12', '1142n', '2018-11-29', 1, 'O001'),
+('13', '1142n', '2018-11-29', 1, 'O001'),
+('14', '1142n', '2018-11-29', 1, 'O001'),
+('15', '1142n', '2018-11-29', 1, 'O001'),
+('16', '1142n', '2018-11-29', 0, NULL),
+('17', '1142n', '2018-11-29', 0, NULL),
+('18', '1142n', '2018-11-29', 0, NULL),
+('19', '1142n', '2018-11-29', 0, NULL),
+('20', '1142n', '2018-11-29', 0, NULL),
+('21', '3560g', '2018-11-29', 1, 'O001'),
+('22', '3560g', '2018-11-29', 1, 'O001'),
+('23', '3560g', '2018-11-29', 1, 'O001'),
+('24', '3560g', '2018-11-29', 1, 'O001'),
+('25', '3560g', '2018-11-29', 1, 'O001'),
+('26', '3560g', '2018-11-29', 0, NULL),
+('27', '3560g', '2018-11-29', 0, NULL),
+('28', '3560g', '2018-11-29', 0, NULL),
+('29', '3560g', '2018-11-29', 0, NULL),
+('30', '3560g', '2018-11-29', 0, NULL),
+('31', '4404', '2018-11-29', 1, 'O001'),
+('32', '4404', '2018-11-29', 1, 'O001'),
+('33', '4404', '2018-11-29', 1, 'O001'),
+('34', '4404', '2018-11-29', 1, 'O001'),
+('35', '4404', '2018-11-29', 1, 'O001'),
+('36', '4404', '2018-11-29', 0, NULL),
+('37', '4404', '2018-11-29', 0, NULL),
+('38', '4404', '2018-11-29', 0, NULL),
+('39', '4404', '2018-11-29', 0, NULL),
+('40', '4404', '2018-11-29', 0, NULL);
 
 -- --------------------------------------------------------
 
@@ -119,24 +147,17 @@ CREATE TABLE `sales` (
   `sales_id` int(11) NOT NULL,
   `orders_id` varchar(5) NOT NULL,
   `type_id` varchar(10) NOT NULL,
-  `prod_sn` varchar(20) DEFAULT NULL
+  `sales_count` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
 -- Dumping data for table `sales`
 --
 
-INSERT INTO `sales` (`sales_id`, `orders_id`, `type_id`, `prod_sn`) VALUES
-(1, 'O0001', '1142n', NULL),
-(2, 'O0001', '1142n', NULL),
-(3, 'O0001', '1142n', NULL),
-(4, 'O0001', '1142n', NULL),
-(5, 'O0001', '1142n', NULL),
-(6, 'O0001', '1142n', NULL),
-(7, 'O0001', '1142n', NULL),
-(8, 'O0001', '1142n', NULL),
-(9, 'O0001', '1142n', NULL),
-(10, 'O0001', '1142n', NULL);
+INSERT INTO `sales` (`sales_id`, `orders_id`, `type_id`, `sales_count`) VALUES
+(1, 'O001', '1142n', 5),
+(2, 'O001', '3560g', 5),
+(3, 'O001', '4404', 5);
 
 -- --------------------------------------------------------
 
@@ -155,7 +176,7 @@ CREATE TABLE `staff` (
 --
 
 INSERT INTO `staff` (`staff_id`, `staff_name`, `staff_tel`) VALUES
-('E0001', 'A', '12345');
+('E001', 'B', '12345');
 
 -- --------------------------------------------------------
 
@@ -176,9 +197,9 @@ CREATE TABLE `type` (
 --
 
 INSERT INTO `type` (`type_id`, `type_name`, `type_price`, `type_rate`, `type_count`) VALUES
-('1142n', 'Cisco Aironet AIR-LAP1142N-A-K9', 1900, 100, 100),
-('3560g', 'Cisco Catalyst WS-C3560-24PS-S', 12000, 300, 100),
-('4404', 'Cisco WLC AIR-WLC4404-100-K9', 10000, 300, 100);
+('1142n', 'Cisco Aironet AIR-LAP1142N-A-K9', 1800, 100, 5),
+('3560g', 'Cisco Catalyst WS-C3560-24PS-S', 12000, 300, 5),
+('4404', 'Cisco WLC AIR-WLC4404-100-K9', 10000, 300, 5);
 
 --
 -- Indexes for dumped tables
@@ -209,7 +230,8 @@ ALTER TABLE `partner`
 --
 ALTER TABLE `product`
   ADD PRIMARY KEY (`prod_sn`),
-  ADD KEY `product_ibfk_1` (`type_id`);
+  ADD KEY `product_ibfk_1` (`type_id`),
+  ADD KEY `orders_id` (`orders_id`);
 
 --
 -- Indexes for table `sales`
@@ -217,7 +239,6 @@ ALTER TABLE `product`
 ALTER TABLE `sales`
   ADD PRIMARY KEY (`sales_id`),
   ADD KEY `orders_id` (`orders_id`),
-  ADD KEY `prod_sn` (`prod_sn`),
   ADD KEY `type_id` (`type_id`);
 
 --
@@ -240,7 +261,7 @@ ALTER TABLE `type`
 -- AUTO_INCREMENT for table `sales`
 --
 ALTER TABLE `sales`
-  MODIFY `sales_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+  MODIFY `sales_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- Constraints for dumped tables
@@ -257,15 +278,15 @@ ALTER TABLE `orders`
 -- Constraints for table `product`
 --
 ALTER TABLE `product`
-  ADD CONSTRAINT `product_ibfk_1` FOREIGN KEY (`type_id`) REFERENCES `type` (`type_id`) ON DELETE CASCADE ON UPDATE CASCADE;
+  ADD CONSTRAINT `product_ibfk_1` FOREIGN KEY (`type_id`) REFERENCES `type` (`type_id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `product_ibfk_2` FOREIGN KEY (`orders_id`) REFERENCES `orders` (`orders_id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Constraints for table `sales`
 --
 ALTER TABLE `sales`
   ADD CONSTRAINT `sales_ibfk_1` FOREIGN KEY (`orders_id`) REFERENCES `orders` (`orders_id`) ON DELETE CASCADE ON UPDATE CASCADE,
-  ADD CONSTRAINT `sales_ibfk_2` FOREIGN KEY (`prod_sn`) REFERENCES `product` (`prod_sn`) ON DELETE CASCADE ON UPDATE CASCADE,
-  ADD CONSTRAINT `sales_ibfk_3` FOREIGN KEY (`type_id`) REFERENCES `type` (`type_id`) ON DELETE CASCADE ON UPDATE CASCADE;
+  ADD CONSTRAINT `sales_ibfk_2` FOREIGN KEY (`type_id`) REFERENCES `type` (`type_id`) ON DELETE CASCADE ON UPDATE CASCADE;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
