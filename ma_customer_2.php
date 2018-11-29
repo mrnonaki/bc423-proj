@@ -2,7 +2,6 @@
 require 'header.php';
 if (isset($_POST['id'])) {
 	$id = $_POST['id'];
-	echo $id;
 	if ($id == 'new') {
 		$sql = "SELECT COUNT(*) FROM customer";
 		$result = $conn->query($sql);
@@ -52,7 +51,7 @@ if (isset($_POST['id'])) {
                 <input type="text" class="form-control input-lg m-bot15" name="tel" placeholder="<?php echo $tel;?>">
               </div>
 			</div>
-			<button onclick="goBack()" class="btn btn-primary">ย้อนกลับ</button><button type="submit" class="btn btn-primary">ยืนยัน</button>
+			<button type="submit" class="btn btn-primary">ยืนยัน</button>
           </div>
 		</form>
         <!-- page end-->

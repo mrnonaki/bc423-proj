@@ -48,7 +48,7 @@ if (isset($_POST['id']) && isset($_POST['newid'])) {
                 <input type="text" class="form-control input-lg m-bot15" name="rate" placeholder="<?php echo $rate;?>">
               </div>
 			</div>
-			<button onclick="goBack()" class="btn btn-primary">ย้อนกลับ</button><button type="submit" class="btn btn-primary">ยืนยัน</button>
+			<button type="submit" class="btn btn-primary">ยืนยัน</button>
           </div>
 		</form>
         <!-- page end-->

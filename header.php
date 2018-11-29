@@ -80,9 +80,9 @@ $conn->set_charset("utf8");
                           <span class="menu-arrow arrow_carrot-right"></span>
                       </a>
             <ul class="sub">
-              <li><a class="" href="ship_list.html">ใบจัดส่ง</a></li>
-              <li><a class="" href="ship_rec.html">บันทึกการจัดส่ง</a></li>
-			  <li><a class="" href="product_warranty.html">บันทึกการเปลี่ยนสินค้า</a></li>
+              <li><a class="" href="ship_list_1.php">ใบจัดส่ง</a></li>
+              <li><a class="" href="ship_rec_1.php">บันทึกการจัดส่ง</a></li>
+			  <li><a class="" href="ma_claim_1.php">บันทึกการเปลี่ยนสินค้า</a></li>
             </ul>
           </li>
           <li class="sub-menu">
@@ -95,7 +95,9 @@ $conn->set_charset("utf8");
               <li><a class="" href="ma_type_1.php">บันทึก / แก้ไข ประเภท</a></li>
 			  <li><a class="" href="ma_product_1.php">บันทึก / แก้ไข สินค้า</a></li>
 			  <li><a class="" href="ma_customer_1.php">บันทึก / แก้ไข ลูกค้า</a></li>
+			  <!--
 			  <li><a class="" href="ma_staff_1.php">บันทึก / แก้ไข พนักงาน</a></li>
+			  -->
 			  <li><a class="" href="ma_partner_1.php">บันทึก / แก้ไข คู่ค้า</a></li>
             </ul>
           </li>
@@ -106,17 +108,23 @@ $conn->set_charset("utf8");
                           <span class="menu-arrow arrow_carrot-right"></span>
                       </a>
             <ul class="sub">
-              <li><a class="" href="report_sales.html">การขาย</a></li>
-              <li><a class="" href="report_product.html">สินค้าแยกประเภท</a></li>
-			  <li><a class="" href="report_ship.html">การจัดส่ง</a></li>
-			  <li><a class="" href="report_warranty.html">การรับประกัน</a></li>
-			  <li><a class="" href="report_payment.html">การรับชำระ</a></li>
+              <li><a class="" href="report_sales_1.php">การขาย</a></li>
+              <li><a class="" href="report_product_1.php">สินค้าแยกประเภท</a></li>
+			  <li><a class="" href="report_ship_1.php">การจัดส่ง</a></li>
+			  <li><a class="" href="report_claim_1.php">การรับประกัน</a></li>
+			  <li><a class="" href="report_payment_1.php">การรับชำระ</a></li>
             </ul>
           </li>
           <li class="">
             <a class="" href="help.html">
                           <i class="icon_document_alt"></i>
                           <span>คู่มือ</span>
+                      </a>
+		  </li>
+          <li class="">
+            <a class="" href="index.php">
+                          <i class="icon_document_alt"></i>
+                          <span>ออกจากระบบ</span>
                       </a>
 		  </li>
         </ul>

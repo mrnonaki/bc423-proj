@@ -6,26 +6,24 @@ require 'header.php';
       <section class="wrapper">
         <div class="row">
           <div class="col-lg-12">
-            <h3 class="page-header"><i class="fa fa fa-bars"></i> ใบเสร็จรับเงิน</h3>
+            <h3 class="page-header"><i class="fa fa fa-bars"></i> ใบจัดส่ง</h3>
           </div>
         </div>
         <!-- page start-->
-		<form method="post" action="order_invoice_2.php">
+		<form method="post" action="ship_list_2.php">
 		  <div class="col-sm-12">
 			<select class="form-control input-lg m-bot15" name="id">
                 <option value="">รหัสการขาย</option>
 <?php
-$sql = "SELECT * FROM orders JOIN customer ON orders.cus_id = customer.cus_id";
+$sql = "SELECT * FROM orders JOIN customer ON orders.cus_id = customer.cus_id WHERE orders.orders_status BETWEEN '1' AND '2'";
 $result = $conn->query($sql);
 while($row = $result->fetch_assoc()) {
-	$orders_pay = $row["orders_pay"];
-	if ($orders_pay == NULL) {
-		$orders_pay = 'ยังไม่ชำระ';
-	} else {
-		$orders_pay = 'ชำระแล้ว';
+	if ($row["orders_status"] == '1') {
+		$orders_status = 'ยังไม่จัดส่ง';
+	} elseif ($row["orders_status"] == '2') {
+		$orders_status = 'จัดส่งแล้ว';
 	}
-	
-	echo "<option value=\"".$row["orders_id"]."\">".$orders_pay." ".$row["orders_id"].": ".$row["cus_name"]." (".$row["orders_amount"]." บาท) </option>\n";
+	echo "<option value=\"".$row["orders_id"]."\">".$orders_status." ".$row["orders_id"].": ".$row["cus_name"]."</option>\n";
 }
 ?>
             </select>

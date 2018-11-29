@@ -6,26 +6,19 @@ require 'header.php';
       <section class="wrapper">
         <div class="row">
           <div class="col-lg-12">
-            <h3 class="page-header"><i class="fa fa fa-bars"></i> ใบเสร็จรับเงิน</h3>
+            <h3 class="page-header"><i class="fa fa fa-bars"></i> บันทึกการจัดส่ง</h3>
           </div>
         </div>
         <!-- page start-->
-		<form method="post" action="order_invoice_2.php">
+		<form method="post" action="ship_rec_2.php">
 		  <div class="col-sm-12">
 			<select class="form-control input-lg m-bot15" name="id">
                 <option value="">รหัสการขาย</option>
 <?php
-$sql = "SELECT * FROM orders JOIN customer ON orders.cus_id = customer.cus_id";
+$sql = "SELECT * FROM orders JOIN customer ON orders.cus_id = customer.cus_id WHERE orders.orders_status='1'";
 $result = $conn->query($sql);
 while($row = $result->fetch_assoc()) {
-	$orders_pay = $row["orders_pay"];
-	if ($orders_pay == NULL) {
-		$orders_pay = 'ยังไม่ชำระ';
-	} else {
-		$orders_pay = 'ชำระแล้ว';
-	}
-	
-	echo "<option value=\"".$row["orders_id"]."\">".$orders_pay." ".$row["orders_id"].": ".$row["cus_name"]." (".$row["orders_amount"]." บาท) </option>\n";
+	echo "<option value=\"".$row["orders_id"]."\">".$row["orders_id"].": ".$row["cus_name"]."</option>\n";
 }
 ?>
             </select>

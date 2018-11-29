@@ -8,7 +8,7 @@ if (isset($_POST['id'])) {
 	$customer = $_POST['customer'];
 	$amount = $_POST['amount'];
 	$status = 0;
-	$sql = "INSERT INTO orders VALUES ('$id', '$time', NULL, NULL, NULL, '$amount', '$status', '$staff', '$customer')";
+	$sql = "INSERT INTO orders VALUES ('$id', '$time', NULL, NULL, NULL, '$amount', '$status', '$staff', '$customer', NULL)";
 	$result = $conn->query($sql);
 	
 	$sql = "SELECT * FROM type";

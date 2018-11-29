@@ -64,6 +64,14 @@ while($row = $result->fetch_assoc()) {
 		$status = $row["prod_status"].': พร้อมจำหน่าย';
 	} elseif ($row["prod_status"] == '1') {
 		$status = $row["prod_status"].': รอชำระ '.$row["orders_id"];
+	} elseif ($row["prod_status"] == '2') {
+		$status = $row["prod_status"].': ชำระแล้ว '.$row["orders_id"];
+	} elseif ($row["prod_status"] == '3') {
+		$status = $row["prod_status"].': จัดส่งแล้ว '.$row["orders_id"];
+	} elseif ($row["prod_status"] == '4') {
+		$status = $row["prod_status"].': เคลมเข้า '.$row["orders_id"];
+	} elseif ($row["prod_status"] == '5') {
+		$status = $row["prod_status"].': เคลมออก '.$row["orders_id"];
 	} else {
 		$status = $row["prod_status"];
 	}
