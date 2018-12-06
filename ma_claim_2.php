@@ -1,26 +1,42 @@
 <?php
+$alert = 0;
 require 'header.php';
 if (isset($_POST['old_sn'])) {
 	$old_sn = $_POST['old_sn'];
-	$sql = "
-	SELECT * FROM product INNER JOIN orders ON product.orders_id = orders.orders_id INNER JOIN type ON product.type_id = type.type_id INNER JOIN customer ON orders.cus_id = customer.cus_id WHERE product.prod_sn='$old_sn'";
+	$sql = "SELECT * FROM product WHERE prod_sn='$old_sn' AND prod_status='3'";
 	$result = $conn->query($sql);
-	while($row = $result->fetch_assoc()) {
-		$prod_sn = $row["prod_sn"];
-		$type_id = $row["type_id"];
-		$type_name = $row["type_name"];
-		$cus_id = $row["cus_id"];
-		$cus_name = $row["cus_name"];
-		$orders_id = $row["orders_id"];
-		$orders_ship = $row["orders_ship"];
-		echo "11111".$orders_ship;
-	}
-	$exp = date("Y-m-d", strtotime($orders_ship."+90days"));
-	$expin = ceil((strtotime($exp) - strtotime($orders_ship)) / 86400);
-	if ($expin > 0) {
-		$canclaim = 1;
+	if ($result->num_rows) {
+		$alert = 0;
+		$sql = "SELECT * FROM product INNER JOIN orders ON product.orders_id = orders.orders_id INNER JOIN type ON product.type_id = type.type_id INNER JOIN customer ON orders.cus_id = customer.cus_id WHERE product.prod_sn='$old_sn'";
+		$result = $conn->query($sql);
+		while($row = $result->fetch_assoc()) {
+			$prod_sn = $row["prod_sn"];
+			$type_id = $row["type_id"];
+			$type_name = $row["type_name"];
+			$cus_id = $row["cus_id"];
+			$cus_name = $row["cus_name"];
+			$orders_id = $row["orders_id"];
+			$orders_ship = $row["orders_ship"];
+		}
+		$exp = date("Y-m-d", strtotime($orders_ship."+90days"));
+		$expin = ceil((strtotime($exp) - strtotime($orders_ship)) / 86400);
+		if ($expin > 0) {
+			$canclaim = 1;
+		} else {
+			$canclaim = 0;
+		}
 	} else {
+		$alert = 1;
 		$canclaim = 0;
+		$prod_sn = '';
+		$type_id = '';
+		$type_name = '';
+		$cus_id = '';
+		$cus_name = '';
+		$orders_id = '';
+		$orders_ship = '';
+		$exp = '';
+		$expin = '';
 	}
 }
 ?>
@@ -28,6 +44,12 @@ if (isset($_POST['old_sn'])) {
     <section id="main-content">
       <section class="wrapper">
         <div class="row">
+<?php
+if ($alert) {
+	echo "<div class=\"alert alert-block alert-danger fade in\"><button data-dismiss=\"alert\" class=\"close close-sm\" type=\"button\"><i class=\"icon-remove\"></i></button><strong>S/N: $old_sn</strong> ยังไม่ถูกขาย หรือไม่พบในระบบ</div>";
+	echo "<meta http-equiv=\"refresh\" content=\"2;url=ma_claim_1.php\">";
+}
+?>
           <div class="col-lg-12">
             <h3 class="page-header"><i class="fa fa fa-bars"></i>บันทึกการเปลี่ยนสินค้า <?php echo $prod_sn;?></h3>
           </div>

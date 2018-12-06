@@ -113,6 +113,13 @@ $result = $conn->query($sql);
 while($row = $result->fetch_assoc()) {
 	$totalcount = $row["SUM(sales_count)"];
 }
+$sql = "SELECT * FROM product WHERE orders_id='$id'";
+$result = $conn->query($sql);
+if ($result->num_rows != $totalcount) {
+	$concount = '0';
+} else {
+	$concount = '1';
+}
 ?>
 				  <tr>
 				    <td></td>
@@ -132,13 +139,19 @@ while($row = $result->fetch_assoc()) {
               </table>
             </section>
           </div>
+<?php
+if ($concount) {
+	echo '
 		  <div class="checkbox">
             <label>
-              <input type="checkbox" name="confirm" value="confirmed" <?php echo $confirmed;?>>
+              <input type="checkbox" name="confirm" value="confirmed" '.$confirmed.'>
 			  ชำระเรียบร้อยแล้ว
             </label>
           </div>
 		  <button type="submit" class="btn btn-primary">ยืนยัน</button>
+		  ';
+}
+?>
 		  <button type="button" class="btn btn-primary" onclick="printDiv('printableArea')">Print</button>
 		</form>
         <!-- page end-->

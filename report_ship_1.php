@@ -5,10 +5,10 @@ $conn->set_charset("utf8");
 ?>
     <!--main content start-->
     <section id="main-content">
-      <section class="wrapper">
+      <section id="printableArea" class="wrapper">
         <div class="row">
           <div class="col-lg-12">
-            <h3 class="page-header"><i class="fa fa fa-bars"></i> รายงานการจัดส่ง</h3>
+            <h3 class="page-header"><i class="fa fa fa-bars"></i> รายงานการจัดส่ง <?php echo date("Y-m-d");?></h3>
           </div>
         </div>
         <!-- page start-->
@@ -94,6 +94,7 @@ while($row = $result->fetch_assoc()) {
           </div>
         <!-- page end-->
       </section>
+	  <button type="button" class="btn btn-primary" onclick="printDiv('printableArea')">Print</button>
     </section>
     <!--main content end-->
 

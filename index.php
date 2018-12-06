@@ -11,8 +11,10 @@ if (isset($_POST['user'])) {
 	
 	header("Location: home.php");
 	
-	} else if ($user && $pass) {
+	} elseif ($user || $pass) {
 		echo "ERROR: User or Password not Found.";
+	} elseif ($user == '' || $pass == '') {
+		header("Location: index.php");
 	}
 } else {
 ?>

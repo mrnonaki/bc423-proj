@@ -56,7 +56,7 @@ $result = $conn->query($sql);
 while($row = $result->fetch_assoc()) {
 	if (isset($_POST[$row["type_id"]])) {
 		$typecount = $_POST[$row["type_id"]];
-		if ($typecount > 0) {
+		if ($typecount > 0 && $typecount <= $row["type_count"]) {
 			$typetotal = ($row["type_price"] + $row["type_rate"]) * $typecount;
 			$counttotal = $counttotal + $typecount;
 			$net = $net + $typetotal;

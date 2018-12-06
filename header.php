@@ -116,7 +116,7 @@ $conn->set_charset("utf8");
             </ul>
           </li>
           <li class="">
-            <a class="" href="help.html">
+            <a class="" href="https://drive.google.com/open?id=1FV5iZ1j1LSIMg4VmlSL1b8RuXcXKrRXg" target="_blank">
                           <i class="icon_document_alt"></i>
                           <span>คู่มือ</span>
                       </a>

@@ -1,4 +1,5 @@
 <?php
+$alert = 0;
 require 'header.php';
 $conn = new mysqli("localhost", "root", "", "proj-warranty");
 $conn->set_charset("utf8");
@@ -7,25 +8,32 @@ if (isset($_POST['id'])) {
 	if (isset($_POST['sn'])) {
 		$sn = $_POST['sn'];
 		if ($sn !== '') {
-			$sql = "SELECT * FROM product WHERE prod_sn='$sn'";
+			$sql = "SELECT * FROM product WHERE prod_sn='$sn' AND prod_status='0'";
 			$result = $conn->query($sql);
-			while($row = $result->fetch_assoc()) {
-				$type = $row["type_id"];
-			}
-			$sql = "SELECT COUNT(*) FROM product WHERE orders_id='$id' AND type_id='$type'";
-			$result = $conn->query($sql);
-			while($row = $result->fetch_assoc()) {
-				$typenow = $row["COUNT(*)"];
-			}
-			$sql = "SELECT * FROM sales WHERE orders_id='$id' AND type_id='$type'";
-			$result = $conn->query($sql);
-			while($row = $result->fetch_assoc()) {
-				$typeneed = $row["sales_count"];
-			}
-			if ($typenow < $typeneed) {
-				$sql = "UPDATE product SET orders_id='$id', prod_status='1' WHERE prod_sn='$sn'";
+			if ($result->num_rows == 0) {
+				$alert = 1;
+			} else {
+				while($row = $result->fetch_assoc()) {
+					$type = $row["type_id"];
+				}
+				$sql = "SELECT COUNT(*) FROM product WHERE orders_id='$id' AND type_id='$type'";
 				$result = $conn->query($sql);
-				require 'stock_update.php';
+				while($row = $result->fetch_assoc()) {
+					$typenow = $row["COUNT(*)"];
+				}
+				$sql = "SELECT * FROM sales WHERE orders_id='$id' AND type_id='$type'";
+				$result = $conn->query($sql);
+				while($row = $result->fetch_assoc()) {
+					$typeneed = $row["sales_count"];
+				}
+				if ($typenow < $typeneed) {
+					$alert = 0;
+					$sql = "UPDATE product SET orders_id='$id', prod_status='1' WHERE prod_sn='$sn'";
+					$result = $conn->query($sql);
+					require 'stock_update.php';
+				} else {
+					$alert = 2;
+				}
 			}
 		}
 	}
@@ -35,6 +43,13 @@ if (isset($_POST['id'])) {
     <section id="main-content">
       <section class="wrapper">
         <div class="row">
+<?php
+if ($alert == 1) {
+	echo "<div class=\"alert alert-block alert-danger fade in\"><button data-dismiss=\"alert\" class=\"close close-sm\" type=\"button\"><i class=\"icon-remove\"></i></button><strong>Type: $sn</strong> ไม่มีอยู่ในระบบ หรือถูกขายไปแล้ว</div>";
+} else if ($alert == 2) {
+	echo "<div class=\"alert alert-block alert-danger fade in\"><button data-dismiss=\"alert\" class=\"close close-sm\" type=\"button\"><i class=\"icon-remove\"></i></button><strong>Type: $type</strong> are all of your orders</div>";
+}
+?>
           <div class="col-lg-12">
             <h3 class="page-header"><i class="fa fa fa-bars"></i> บันทึก S/N <?php echo $id;?></h3>
           </div>

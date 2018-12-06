@@ -1,4 +1,5 @@
 <?php
+$alert = 0;
 require 'header.php';
 $conn = new mysqli("localhost", "root", "", "proj-warranty");
 $conn->set_charset("utf8");
@@ -7,11 +8,18 @@ if (isset($_POST['type'])) {
 	if (isset($_POST['sn'])) {
 		$sn = $_POST['sn'];
 		if ($sn !== '') {
+			$sql = "SELECT * FROM product WHERE prod_sn='$sn'";
+			$result = $conn->query($sql);
+			if ($result->num_rows) {
+				$alert = 1;
+			} else {
+			$alert = 0;
 			$date = date("Y-m-d");
 			$status = '0';
 			$sql = "INSERT INTO product VALUES ('$sn', '$type', '$date', '$status', NULL)";
 			$result = $conn->query($sql);
 			require 'stock_update.php';
+			}
 		}
 	}
 }
@@ -20,8 +28,10 @@ if (isset($_POST['type'])) {
     <section id="main-content">
       <section class="wrapper">
         <div class="row">
-          <div class="col-lg-12">
 <?php
+if ($alert) {
+	echo "<div class=\"alert alert-block alert-danger fade in\"><button data-dismiss=\"alert\" class=\"close close-sm\" type=\"button\"><i class=\"icon-remove\"></i></button><strong>S/N: $sn</strong> is already exist.</div>";
+}
 $sql = "SELECT * FROM type WHERE type_id='$type'";
 $result = $conn->query($sql);
 while($row = $result->fetch_assoc()) {
@@ -33,6 +43,7 @@ while($row = $result->fetch_assoc()) {
 	$total = $row["COUNT(*)"];
 }
 ?>
+          <div class="col-lg-12">
             <h3 class="page-header"><i class="fa fa fa-bars"></i> บันทึก / แก้ไข สินค้า <?php echo $type." (คงเหลือ ".$count." / ".$total.")";?></h3>
           </div>
         </div>

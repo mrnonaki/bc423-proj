@@ -5,10 +5,10 @@ $conn->set_charset("utf8");
 ?>
     <!--main content start-->
     <section id="main-content">
-      <section class="wrapper">
+      <section id="printableArea" class="wrapper">
         <div class="row">
           <div class="col-lg-12">
-            <h3 class="page-header"><i class="fa fa fa-bars"></i> รายงานการรับชำระ</h3>
+            <h3 class="page-header"><i class="fa fa fa-bars"></i> รายงานการรับชำระ <?php echo date("Y-m-d");?></h3>
           </div>
         </div>
         <!-- page start-->
@@ -155,6 +155,7 @@ if ($sum == '') {
           </div>
         <!-- page end-->
       </section>
+	  <button type="button" class="btn btn-primary" onclick="printDiv('printableArea')">Print</button>
     </section>
     <!--main content end-->
 

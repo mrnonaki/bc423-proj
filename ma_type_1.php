@@ -13,7 +13,7 @@ require 'header.php';
 		<form method="post" action="ma_type_2.php">
 		  <div class="col-sm-12">
 			<select class="form-control input-lg m-bot15" name="id">
-                <option value="">รหัสประเภท</option>
+                <option value="">รหัสประเภท (สร้างใหม่)</option>
 <?php
 $sql = "SELECT * FROM type";
 $result = $conn->query($sql);

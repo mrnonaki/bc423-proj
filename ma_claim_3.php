@@ -7,14 +7,17 @@ if (isset($_POST['id']) && isset($_POST['prod_sn']) && isset($_POST['type_id']) 
 	$new_sn = $_POST['new_sn'];
 	if ($prod_sn == $new_sn) {
 		$error = 'disabled';
+		$alert = 1;
 	}
 	$sql = "SELECT * FROM product WHERE prod_status='0' AND prod_sn='$new_sn'";
 	$result = $conn->query($sql);
 	while($row = $result->fetch_assoc()) {
 		if ($row["type_id"] !== $type_id) {
 			$error = 'disabled';
+			$alert = 2;
 		} else {
 			$error = '';
+			$alert = 0;
 		}
 	}
 }
@@ -23,6 +26,18 @@ if (isset($_POST['id']) && isset($_POST['prod_sn']) && isset($_POST['type_id']) 
     <section id="main-content">
       <section class="wrapper">
         <div class="row">
+<?php
+if ($alert) {
+	if ($alert == 1) {
+		echo "<div class=\"alert alert-block alert-danger fade in\"><button data-dismiss=\"alert\" class=\"close close-sm\" type=\"button\"><i class=\"icon-remove\"></i></button><strong>S/N: $prod_sn</strong> ไม่สามารถเครมสินค้าตัวเดิมได้</div>";
+	} elseif ($alert == 2) {
+		echo "<div class=\"alert alert-block alert-danger fade in\"><button data-dismiss=\"alert\" class=\"close close-sm\" type=\"button\"><i class=\"icon-remove\"></i></button><strong>S/N: $prod_sn</strong> ไม่สามารถเครมสินค้าต่างประเภทกันได้</div>";
+	}
+	echo "<meta http-equiv=\"refresh\" content=\"2;url=ma_claim_1.php\">";
+}
+
+
+?>
           <div class="col-lg-12">
             <h3 class="page-header"><i class="fa fa fa-bars"></i>บันทึกการเปลี่ยนสินค้า <?php echo $prod_sn;?></h3>
           </div>
